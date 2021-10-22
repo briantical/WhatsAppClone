@@ -15,4 +15,9 @@ module.exports = {
   rules: {
     'import/extensions': 'off',
   },
+  settings: {
+    'import/resolver': {
+      'babel-plugin-root-import': {},
+    },
+  },
 };
