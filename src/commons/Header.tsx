@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Stack, Heading, HStack, IconButton } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Header = ({ navigation }) => {
+import { contexts, types } from '@store/index';
+
+const { ModalContext } = contexts;
+const { ActionType } = types;
+
+const Header = () => {
+  const { dispatch, state } = useContext(ModalContext);
+  const { visible } = state;
+
+  const toggleModal = () => {
+    dispatch({ type: ActionType.TOGGLE_MODAL, payload: { visible: !visible } });
+  };
+
   return (
     <Stack
       direction='row'
@@ -21,8 +33,8 @@ const Header = ({ navigation }) => {
         <IconButton size='sm' icon={<Icon name='search' color='#888D90' size={25} />} />
 
         <IconButton
-          onPress={() => navigation.navigate('ModalScreens')}
           size='sm'
+          onPress={toggleModal}
           icon={<Icon name='more-vert' color='#888D90' size={25} />}
         />
       </HStack>

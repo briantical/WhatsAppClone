@@ -1,19 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import { NativeBaseProvider } from 'native-base';
 
 import MainRoute from '@screens/index';
 import { theme } from '@styles/index';
+import { contexts, initialStates, reducers } from '@store/index';
+
+const { modalReducer } = reducers;
+const { ModalContext } = contexts;
+const { modalInitialState } = initialStates;
 
 const App = () => {
+  const [state, dispatch] = useReducer(modalReducer, modalInitialState);
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
   return (
-    <NativeBaseProvider theme={theme}>
-      <MainRoute />
-    </NativeBaseProvider>
+    <ModalContext.Provider value={{ state, dispatch }}>
+      <NativeBaseProvider theme={theme}>
+        <MainRoute />
+      </NativeBaseProvider>
+    </ModalContext.Provider>
   );
 };
 

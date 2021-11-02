@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Entypo';
 
 import { Home } from '@components/index';
-import { Header } from '@commons/index';
+import { Header, Modal } from '@commons/index';
 
 const { Camera, Calls, Chats, Status } = Home;
 
@@ -40,13 +40,16 @@ const HomeStacks = () => {
 
 const HomeTabs = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        header: (props) => <Header {...props} />,
-      }}
-    >
-      <Stack.Screen name='HomeTabs' children={HomeStacks} />
-    </Stack.Navigator>
+    <>
+      <Stack.Navigator
+        screenOptions={{
+          header: () => <Header />,
+        }}
+      >
+        <Stack.Screen name='HomeTabs' children={HomeStacks} />
+      </Stack.Navigator>
+      <Modal />
+    </>
   );
 };
 
